@@ -1,20 +1,81 @@
-# Portfolio-architecte-sophie-bluel
+# OpenClassrooms - Portfolio architecte Sophie Bluel
 
-Code du projet 6 d'intégrateur web.
+HTML5 JavaScript Node.js API REST OpenClassrooms Status
 
-## Architecture
+## 📖 Description
 
-Ce repo git contient les 2 briques logicielles du projet 
-- Frontend
-- Backend
+Portfolio architecte Sophie Bluel est le sixième projet de la formation Développeur Web OpenClassrooms.
 
-## Pour le lancer le code
+L'objectif est de rendre dynamique le site de l'architecte d'intérieur Sophie Bluel en utilisant JavaScript et en communiquant avec une API.
+
+Le projet comprend également la création d'une page de connexion administrateur ainsi que d'une interface permettant de gérer les travaux de l'architecte.
+
+## 🚀 Technologies
+
+HTML5
+CSS3
+JavaScript
+Node.js
+API REST
+Git
+GitHub
+
+## 🎯 Compétences développées
+
+* Manipuler les éléments du DOM avec JavaScript
+* Gérer les événements utilisateurs
+* Récupérer et afficher des données provenant d'une API
+* Utiliser des formulaires en JavaScript
+* Gérer une authentification avec un token
+* Créer une interface dynamique sans rechargement de la page
+* Communiquer avec une API
+* Versionner un projet avec Git et GitHub
+
+## 📂 Installation
+
+Clonez le dépôt :
+
+```bash
+git clone git@github.com:jeremyroussel4/Portfolio-architecte-sophie-bluel.git
+```
+
 ### Backend
-Ouvrir le dossier Backend et lire le README.md
+
+Ouvrez un terminal dans le dossier `Backend` :
+
+```bash
+npm install
+```
+
+Puis lancez le serveur :
+
+```bash
+npm start
+```
 
 ### Frontend
-Ouvrir le dossier Frontend et lancer liveserver de votre IDE
- 
-## Astuce
- 
-Si vous désirez afficher le code du backend et du frontend, faites le dans 2 instances de VSCode différentes pour éviter tout problème
+
+Ouvrez le dossier `Frontend` dans VS Code.
+
+Lancez `index.html` avec l'extension **Live Server**.
+
+## 📁 Structure du projet
+
+```text
+.
+├── Backend/
+│   ├── README.md
+│   └── ...
+├── FrontEnd/
+│   ├── index.html
+│   └── assets/
+│       └── style.css
+├── .gitignore
+└── README.md
+```
+
+## 👨‍💻 Auteur
+
+Jeremy Roussel
+
+Projet réalisé dans le cadre de la formation Développeur Web OpenClassrooms.
