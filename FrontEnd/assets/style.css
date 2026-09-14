@@ -52,6 +52,7 @@ body {
 	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
+	background-color: #FFFEF8;
 }
 header {
 	display: flex;
@@ -74,7 +75,10 @@ h1{
 h1 > span {
 	font-family: 'Work Sans';
 	font-size:10px;
+	font-weight: 400;
+	text-transform: uppercase;
 	letter-spacing: 0.1em;
+	margin-top: 5px;
 ;
 }
 
@@ -91,12 +95,42 @@ nav ul {
 
 }
 nav li {
-	padding: 0 10px;
+	padding: 0 15px;
 	font-size: 1.2em;
 }
 
-li:hover {
-	color: #B1663C;
+/* Icône Instagram à la même échelle que le texte du menu */
+nav img {
+	width: 20px;
+	height: auto;
+	display: block;
+}
+
+nav a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* Survol des liens qui ne correspondent pas à la page actuelle */
+nav a:not(.active):hover {
+	font-weight: 400;
+	text-shadow: 0 0 0.5px currentColor;
+}
+
+/* Lien de la page actuelle : il reste en gras */
+nav a.active {
+	font-weight: 600;
+	
+}
+
+/* Le survol du lien actif l'épaissit sans changer sa couleur */
+nav a.active:hover {
+	text-shadow: 0 0 1px currentColor;
+}
+
+nav a:visited {
+    color: inherit;
 }
 #introduction {
 	display: flex;
@@ -207,4 +241,55 @@ footer nav ul {
 	justify-content: flex-end;
 	margin: 2em
 }
+.login-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.login-page main {
+	flex: 1;
+}
+#login {
+	width: 100%;
+	max-width: 570px;
+	margin: 50px auto;
+}
+#login form {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	max-width: 414px;
+	margin: auto;
+}
+#login h2 {
+	text-align: center;
+	margin-bottom: 30px;
+}
+#login input {
+	width: 100%;
+	height: 50px;
+	box-sizing: border-box;
+}
+#login p {
+	text-align: center;
+}
+#login label {
+	margin: 1em 0 0.5em 0;
+}
+/* Bouton de connexion */
+.login-button {
+	align-self: center;
+	width: 196px;
+	height: 40px;
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	border: 2px solid #1D6154;
+	border-radius: 60px;
+	margin: 40px auto 30px;
+}
 
+.login-button:hover {
+	background-color: #164c41;
+}
