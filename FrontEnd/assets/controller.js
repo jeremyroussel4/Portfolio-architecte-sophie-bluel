@@ -12,8 +12,9 @@ export async function startApplication() {
 
 function createFilters(works) {
   const filters = document.querySelector(".filters");
-
   const allButton = document.createElement("button");
+  const categories = [...new Set(works.map((work) => work.category.name))];
+
   allButton.classList.add("button");
   allButton.classList.add("active");
   allButton.textContent = "Tous";
@@ -25,8 +26,26 @@ function createFilters(works) {
       button.classList.remove("active");
     });
     allButton.classList.add("active");
-
     displayWorks(works);
+  });
+
+  categories.forEach(function (category) {
+    const button = document.createElement("button");
+    button.classList.add("button");
+    button.textContent = category;
+    filters.appendChild(button);
+
+    button.addEventListener("click", function () {
+      const buttons = document.querySelectorAll(".filters button");
+      buttons.forEach(function (button) {
+        button.classList.remove("active");
+      });
+      button.classList.add("active");
+      const filteredWorks = works.filter(
+        work => work.category.name === category
+      );
+      displayWorks(filteredWorks);
+    });
   });
 }
 
