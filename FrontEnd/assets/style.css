@@ -3,293 +3,374 @@
    License: none (public domain)
 */
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
-	display: block;
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
 }
 body {
-	line-height: 1;
+  line-height: 1;
 }
-ol, ul {
-	list-style: none;
+ol,
+ul {
+  list-style: none;
 }
-blockquote, q {
-	quotes: none;
+blockquote,
+q {
+  quotes: none;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
 }
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 /** end reset css**/
-body {
-	max-width: 1140px;
-	margin:auto;
-	font-family: 'Work Sans' ;
-	font-size: 14px;
-	background-color: #FFFEF8;
-}
-header {
-	display: flex;
-	justify-content: space-between;
-	margin: 50px 0
-}
-section {
-	margin: 50px 0
+/* Garder le même alignement entre les pages, avec ou sans scrollbar */
+html {
+  overflow-y: scroll;
 }
 
-h1{
-	display: flex;
-	flex-direction: column;
-	font-family: 'Syne';
-	font-size: 22px;
-	font-weight: 800;
-	color: #B1663C
+body {
+  max-width: 1140px;
+  margin: auto;
+  font-family: "Work Sans";
+  font-size: 14px;
+  background-color: #fffef8;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  margin: 50px 0;
+}
+section {
+  margin: 50px 0;
+}
+
+h1 {
+  display: flex;
+  flex-direction: column;
+  font-family: "Syne";
+  font-size: 22px;
+  font-weight: 800;
+  color: #b1663c;
 }
 
 h1 > span {
-	font-family: 'Work Sans';
-	font-size:10px;
-	font-weight: 400;
-	text-transform: uppercase;
-	letter-spacing: 0.1em;
-	margin-top: 5px;
-;
+  font-family: "Work Sans";
+  font-size: 10px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 5px;
 }
 
-h2{
-	font-family: 'Syne';
-	font-weight: 700;
-	font-size: 30px;
-	color: #1D6154
+h2 {
+  font-family: "Syne";
+  font-weight: 700;
+  font-size: 30px;
+  color: #1d6154;
 }
 nav ul {
-	display: flex;
-	align-items: center;
-	list-style-type: none;
-
+  display: flex;
+  align-items: center;
+  list-style-type: none;
 }
 nav li {
-	padding: 0 15px;
-	font-size: 1.2em;
+  padding: 0 15px;
+  font-size: 1.2em;
 }
 
 /* Icône Instagram à la même échelle que le texte du menu */
 nav img {
-	width: 20px;
-	height: auto;
-	display: block;
+  width: 20px;
+  height: auto;
+  display: block;
 }
 
 nav a {
-    color: inherit;
-    text-decoration: none;
+  color: inherit;
+  text-decoration: none;
 }
-
 
 /* Survol des liens qui ne correspondent pas à la page actuelle */
 nav a:not(.active):hover {
-	font-weight: 400;
-	text-shadow: 0 0 0.5px currentColor;
+  font-weight: 400;
+  text-shadow: 0 0 0.5px currentColor;
 }
 
 /* Lien de la page actuelle : il reste en gras */
 nav a.active {
-	font-weight: 600;
-	
+  font-weight: 600;
 }
 
 /* Le survol du lien actif l'épaissit sans changer sa couleur */
 nav a.active:hover {
-	text-shadow: 0 0 1px currentColor;
+  text-shadow: 0 0 1px currentColor;
 }
 
 nav a:visited {
-    color: inherit;
+  color: inherit;
 }
 #introduction {
-	display: flex;
-	align-items: center;
+  display: flex;
+  align-items: center;
 }
 #introduction figure {
-	flex: 1
+  flex: 1;
 }
 #introduction img {
-	display: block;
-	margin: auto;
-	width: 80%;
+  display: block;
+  margin: auto;
+  width: 80%;
 }
 
 #introduction article {
-	flex: 1
+  flex: 1;
 }
 #introduction h2 {
-	margin-bottom: 1em;
+  margin-bottom: 1em;
 }
 
 #introduction p {
-	margin-bottom: 0.5em;
+  margin-bottom: 0.5em;
 }
 #portfolio h2 {
-	text-align: center;
-	margin-bottom: 1em;
+  text-align: center;
+  margin-bottom: 1em;
 }
 .filters {
-	display: flex;
-	justify-content: center;
-	margin-bottom: 2em;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2em;
 }
 .button {
-	font-family: 'Syne';
-	font-weight: 700;
-	color: #1D6154;
-	background-color: white;
-	border: 2px solid #1D6154;
-	padding: 10px 20px;
-	margin: 0 10px;
-	border-radius: 60px ;
+  font-family: "Syne";
+  font-weight: 700;
+  color: #1d6154;
+  background-color: white;
+  border: 2px solid #1d6154;
+  padding: 10px 20px;
+  margin: 0 10px;
+  border-radius: 60px;
 }
 .button:hover {
-	background-color: #1D6154;
-	color: white;
+  background-color: #1d6154;
+  color: white;
 }
 .button.active {
-	background-color: #1D6154;
-	color: white;
+  background-color: #1d6154;
+  color: white;
 }
 .gallery {
-	width: 100%;
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	grid-column-gap: 20px;
-	grid-row-gap: 20px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
 }
 .gallery img {
-	width: 100%;
-
+  width: 100%;
 }
 #contact {
-	width: 50%;
-margin: auto;
+  width: 50%;
+  margin: auto;
 }
 #contact > * {
-	text-align: center;
-
+  text-align: center;
 }
-#contact h2{
-	margin-bottom: 20px;
+#contact h2 {
+  margin-bottom: 20px;
 }
 #contact form {
-	text-align: left;
-	margin-top:30px;
-	display: flex;
-	flex-direction: column;
+  text-align: left;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 414px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-#contact input {
-	height: 50px;
-	font-size: 1.2em;
-	border: none;
-	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+#contact input,
+#login input {
+  height: 50px;
+  font-size: 1.2em;
+  border: none;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
-#contact label {
-	margin: 2em 0 1em 0;
+#contact label,
+#login label {
+  margin: 2em 0 1em 0;
 }
 #contact textarea {
-	border: none;
-	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+  border: none;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-input[type="submit"]{
-	font-family: 'Syne';
-	font-weight: 700;
-	color: white;
-	background-color: #1D6154;
-	margin : 2em auto ;
-	width: 180px;
-	text-align: center;
-	border-radius: 60px ;
+#contact input[type="submit"],
+.login-button {
+  font-family: "Syne";
+  font-weight: 700;
+  font-size: 14px;
+  color: white;
+  background-color: #1d6154;
+  border: 2px solid #1d6154;
+  box-shadow: none;
+  margin: 40px auto 30px;
+  width: 196px;
+  height: 40px;
+  text-align: center;
+  border-radius: 60px;
+}
+
+#contact input[type="submit"]:hover,
+.login-button:hover {
+  background-color: #164c41;
+}
+
+#contact input[type="submit"] {
+  width: 180px;
+  height: 50px;
+  margin: 2em auto;
 }
 
 footer nav ul {
-	display: flex;
-	justify-content: flex-end;
-	margin: 2em
+  display: flex;
+  justify-content: flex-end;
+  margin: 2em;
 }
 .login-page {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 .login-page main {
-	flex: 1;
+  flex: 1;
 }
 #login {
-	width: 100%;
-	max-width: 570px;
-	margin: 50px auto;
+  width: 100%;
+  max-width: 570px;
+  margin: 50px auto;
 }
 #login form {
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	max-width: 414px;
-	margin: auto;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 414px;
+  margin: auto;
 }
 #login h2 {
-	text-align: center;
-	margin-bottom: 30px;
+  text-align: center;
+  margin-bottom: 30px;
 }
 #login input {
-	width: 100%;
-	height: 50px;
-	box-sizing: border-box;
+  width: 100%;
+  box-sizing: border-box;
 }
 #login p {
-	text-align: center;
-}
-#login label {
-	margin: 1em 0 0.5em 0;
-}
-/* Bouton de connexion */
-.login-button {
-	align-self: center;
-	width: 196px;
-	height: 40px;
-	font-family: 'Syne';
-	font-weight: 700;
-	color: white;
-	background-color: #1D6154;
-	border: 2px solid #1D6154;
-	border-radius: 60px;
-	margin: 40px auto 30px;
-}
-
-.login-button:hover {
-	background-color: #164c41;
+  text-align: center;
 }

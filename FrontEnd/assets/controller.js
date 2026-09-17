@@ -3,6 +3,9 @@ import { loadWorks } from "./model.js";
 export async function startApplication() {
   console.log("[CONTROLLER] Démarrage et demande des travaux au model");
 
+  const token = localStorage.getItem("token");
+  console.log("[CONTROLLER] Utilisateur connecté :", Boolean(token));
+
   const works = await loadWorks();
 
   console.log("[CONTROLLER] Travaux reçus, mise à jour du DOM");
