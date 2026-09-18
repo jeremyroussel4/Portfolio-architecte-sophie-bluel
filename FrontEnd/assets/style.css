@@ -140,10 +140,42 @@ body {
   font-size: 14px;
   background-color: #fffef8;
 }
+.edition-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 59px;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: #000;
+  font-weight: 700;
+  z-index: 10;
+}
 header {
   display: flex;
   justify-content: space-between;
   margin: 50px 0;
+}
+.edit-button {
+    display: none;
+}
+
+.admin-mode .edition-banner {
+    display: flex;
+}
+
+.admin-mode {
+  padding-top: 59px;
+}
+
+.admin-mode .edit-button {
+    display: inline-block;
+}
+
+.admin-mode .filters {
+    display: none;
 }
 section {
   margin: 50px 0;
@@ -206,6 +238,10 @@ nav a.active {
   font-weight: 600;
 }
 
+.login-page nav a.active {
+  font-weight: 400;
+}
+
 /* Le survol du lien actif l'épaissit sans changer sa couleur */
 nav a.active:hover {
   text-shadow: 0 0 1px currentColor;
@@ -240,6 +276,23 @@ nav a:visited {
 #portfolio h2 {
   text-align: center;
   margin-bottom: 1em;
+}
+.portfolio-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 20px;
+}
+.portfolio-title h2 {
+  margin-bottom: 1em;
+}
+.edit-button {
+  position: static;
+  color: #000;
+  text-decoration: none;
+}
+.edit-button i {
+  margin-right: 5px;
 }
 .filters {
   display: flex;

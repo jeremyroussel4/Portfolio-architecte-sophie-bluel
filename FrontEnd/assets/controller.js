@@ -1,16 +1,13 @@
 import { loadWorks } from "./model.js";
 
 export async function startApplication() {
-  console.log("[CONTROLLER] Démarrage et demande des travaux au model");
+    console.log("[CONTROLLER] Démarrage et demande des travaux au model");
 
-  const token = localStorage.getItem("token");
-  console.log("[CONTROLLER] Utilisateur connecté :", Boolean(token));
+    const works = await loadWorks();
 
-  const works = await loadWorks();
-
-  console.log("[CONTROLLER] Travaux reçus, mise à jour du DOM");
-  createFilters(works);
-  displayWorks(works);
+    createFilters(works);
+    displayWorks(works);
+    setupAdminMode();
 }
 
 function createFilters(works) {
@@ -73,4 +70,26 @@ function displayWorks(works) {
   });
 
   console.log("[DOM] Galerie mise à jour avec", works.length, "travaux");
+}
+
+function setupAdminMode() {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        return;
+    }
+
+    document.body.classList.add("admin-mode");
+
+    const loginLink = document.querySelector(".login-link");
+
+    loginLink.textContent = "logout";
+    loginLink.href = "#";
+
+    loginLink.addEventListener("click", function (event) {
+        event.preventDefault();
+
+        localStorage.removeItem("token");
+        window.location.href = "./login.html";
+    });
 }
