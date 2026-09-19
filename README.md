@@ -8,7 +8,7 @@
 
 ## 📖 Description
 
-Portfolio architecte Sophie Bluel est le sixième projet de la formation Développeur Web OpenClassrooms.
+Portfolio architecte Sophie Bluel est le septième projet de la formation Développeur Web OpenClassrooms.
 
 L'objectif est de rendre dynamique le site de l'architecte d'intérieur Sophie Bluel en utilisant JavaScript et en communiquant avec une API.
 
