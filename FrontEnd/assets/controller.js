@@ -1,13 +1,13 @@
 import { loadWorks } from "./model.js";
 
 export async function startApplication() {
-    console.log("[CONTROLLER] Démarrage et demande des travaux au model");
+  console.log("[CONTROLLER] Démarrage et demande des travaux au model");
 
-    const works = await loadWorks();
+  const works = await loadWorks();
 
-    createFilters(works);
-    displayWorks(works);
-    setupAdminMode();
+  createFilters(works);
+  displayWorks(works);
+  setupAdminMode();
 }
 
 function createFilters(works) {
@@ -15,34 +15,34 @@ function createFilters(works) {
   const allButton = document.createElement("button");
   const categories = [...new Set(works.map((work) => work.category.name))];
 
-  allButton.classList.add("button");
-  allButton.classList.add("active");
+  // version modernisée !
+  allButton.classList.add("button", "active");
   allButton.textContent = "Tous";
   filters.appendChild(allButton);
 
-  allButton.addEventListener("click", function () {
+  allButton.addEventListener("click", () => {
     const buttons = document.querySelectorAll(".filters button");
-    buttons.forEach(function (button) {
+    buttons.forEach((button) => {
       button.classList.remove("active");
     });
     allButton.classList.add("active");
     displayWorks(works);
   });
 
-  categories.forEach(function (category) {
+  categories.forEach((category) => {
     const button = document.createElement("button");
     button.classList.add("button");
     button.textContent = category;
     filters.appendChild(button);
 
-    button.addEventListener("click", function () {
+    button.addEventListener("click", () => {
       const buttons = document.querySelectorAll(".filters button");
-      buttons.forEach(function (button) {
+      buttons.forEach((button) => {
         button.classList.remove("active");
       });
       button.classList.add("active");
       const filteredWorks = works.filter(
-        work => work.category.name === category
+        (work) => work.category.name === category,
       );
       displayWorks(filteredWorks);
     });
@@ -54,42 +54,43 @@ function displayWorks(works) {
   // Clear the gallery
   gallery.innerHTML = "";
 
-  works.forEach(function (work) {
+  // version modernisée !
+  works.forEach((work) => {
     const figure = document.createElement("figure");
     gallery.appendChild(figure);
 
     const image = document.createElement("img");
-    figure.appendChild(image);
-
     image.src = work.imageUrl;
     image.alt = work.title;
 
     const figcaption = document.createElement("figcaption");
     figcaption.textContent = work.title;
-    figure.appendChild(figcaption);
+    figure.append(image, figcaption);
   });
 
   console.log("[DOM] Galerie mise à jour avec", works.length, "travaux");
 }
 
 function setupAdminMode() {
-    const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
+  const isAdmin = Boolean(token);
 
-    if (!token) {
-        return;
-    }
+  document.body.classList.toggle("admin-mode", isAdmin);
 
-    document.body.classList.add("admin-mode");
+  const loginLink = document.querySelector(".login-link");
 
-    const loginLink = document.querySelector(".login-link");
+  loginLink.textContent = isAdmin ? "logout" : "login"; // un peu de ternaire !!
 
-    loginLink.textContent = "logout";
-    loginLink.href = "#";
+  if (!isAdmin) {
+    return;
+  }
 
-    loginLink.addEventListener("click", function (event) {
-        event.preventDefault();
+  loginLink.href = "#";
 
-        localStorage.removeItem("token");
-        window.location.href = "./login.html";
-    });
+  loginLink.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    localStorage.removeItem("token");
+    window.location.href = "./login.html";
+  });
 }

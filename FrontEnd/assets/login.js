@@ -7,14 +7,18 @@ form.addEventListener("submit", async (event) => {
 
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
+  const validationMessage = !email || !password
+    ? "Veuillez remplir tous les champs."
+    : ""; // un peu de ternaire !!
 
-  if (!email || !password) {
-    alert("Veuillez remplir tous les champs.");
+  if (validationMessage) {
+    alert(validationMessage);
     return;
   }
 
   const user = await loginUser(email, password);
 
+  
   if (user && user.token) {
     localStorage.setItem("token", user.token);
     window.location.href = "index.html";
