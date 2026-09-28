@@ -354,6 +354,10 @@ nav a:visited {
   padding-bottom: 35px;
   border-bottom: 1px solid #b3b3b3;
 }
+.modal-gallery[hidden],
+.modal-add-button[hidden] {
+  display: none;
+}
 /* // mise en forme GG !! */
 .modal-gallery figure {
   position: relative;
@@ -417,19 +421,72 @@ nav a:visited {
 .add-photo-form {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
-.add-photo-form input,
+.photo-upload {
+  display: flex;
+  min-height: 169px;
+  margin-bottom: 20px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #e8f1f6;
+}
+.photo-upload input {
+  display: none;
+}
+.photo-upload-button {
+  display: flex;
+  width: 173px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  color: #306685;
+  background-color: #c8dce8;
+  font-size: 14px;
+  cursor: pointer;
+}
+.photo-upload-button i {
+  margin-right: 8px;
+  font-size: 20px;
+}
+.photo-upload p {
+  margin: 8px 0 0;
+  color: #444;
+  font-size: 10px;
+}
+.photo-preview {
+  width: auto;
+  max-width: 100%;
+  max-height: 130px;
+  margin: 0 auto 8px;
+  object-fit: contain;
+}
+.add-photo-form input[type="text"],
 .add-photo-form select {
+  width: 100%;
   height: 40px;
-  margin-bottom: 12px;
-  border: 1px solid #b3b3b3;
+  margin-bottom: 14px;
+  border: 0;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.09);
   background: #fff;
   box-sizing: border-box;
 }
+.add-photo-form label:not(.photo-upload-button) {
+  margin-top: 2px;
+}
+.modal-form-separator {
+  width: 100%;
+  margin-top: 2px;
+  border-top: 1px solid #b3b3b3;
+}
 .modal-submit-button {
+  display: block;
+  width: 240px;
+  max-width: 100%;
   height: 36px;
-  margin-top: 18px;
+  margin: 18px auto 0;
   border: 0;
   border-radius: 60px;
   color: #fff;

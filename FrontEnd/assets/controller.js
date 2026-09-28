@@ -12,6 +12,23 @@ export async function startApplication() {
   displayCategoryOptions(works);
   setupAdminMode();
 
+  photoInput.addEventListener("change", () => {
+    const selectedFile = photoInput.files[0];
+
+    if (!selectedFile) {
+      photoPreview.hidden = true;
+      return;
+    }
+
+    // FileReader lit le fichier choisi et permet de l'afficher avant l'envoi.
+    const reader = new FileReader();
+    reader.addEventListener("load", () => {
+      photoPreview.src = reader.result;
+      photoPreview.hidden = false;
+    });
+    reader.readAsDataURL(selectedFile);
+  });
+
   addPhotoForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
@@ -24,6 +41,7 @@ export async function startApplication() {
       displayWorks(works);
       displayModalWorks(works);
       addPhotoForm.reset();
+      photoPreview.hidden = true;
       addContent.hidden = true;
       modalGallery.hidden = false;
       addButton.hidden = false;
@@ -131,6 +149,8 @@ const addContent = document.querySelector(".modal-add-content");
 const backButton = document.querySelector(".modal-back-button");
 const categorySelect = document.querySelector("#category");
 const addPhotoForm = document.querySelector(".add-photo-form");
+const photoInput = document.querySelector("#photo");
+const photoPreview = document.querySelector(".photo-preview");
 
 // Le lien « modifier » est un lien HTML, mais il sert ici à ouvrir la modale.
 editButton.addEventListener("click", (event) => {

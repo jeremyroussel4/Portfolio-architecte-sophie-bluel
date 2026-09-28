@@ -91,8 +91,15 @@
 					</button>
 					<h2>Ajout photo</h2>
 					<form class="add-photo-form">
-						<label for="photo">Image</label>
-						<input id="photo" name="image" type="file" accept="image/png, image/jpeg" required>
+						<div class="photo-upload">
+							<input id="photo" name="image" type="file" accept="image/png, image/jpeg" required>
+							<label class="photo-upload-button" for="photo">
+								<i class="fa-regular fa-image" aria-hidden="true"></i>
+								+ Ajouter photo
+							</label>
+							<img class="photo-preview" alt="Aperçu de l'image sélectionnée" hidden>
+							<p>jpg, png : 4mo max</p>
+						</div>
 
 						<label for="title">Titre</label>
 						<input id="title" name="title" type="text" required>
@@ -100,6 +107,7 @@
 						<label for="category">Catégorie</label>
 						<select id="category" name="category" required></select>
 
+						<div class="modal-form-separator"></div>
 						<button class="modal-submit-button" type="submit">Valider</button>
 					</form>
 				</div>
