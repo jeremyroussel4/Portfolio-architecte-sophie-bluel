@@ -397,6 +397,47 @@ nav a:visited {
   font-weight: 700;
   cursor: pointer;
 }
+.modal-add-content[hidden] {
+  display: none;
+}
+.modal-add-content {
+  position: relative;
+}
+.modal-back-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 0;
+  padding: 0;
+  color: #000;
+  background: transparent;
+  font-size: 18px;
+  cursor: pointer;
+}
+.add-photo-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.add-photo-form input,
+.add-photo-form select {
+  height: 40px;
+  margin-bottom: 12px;
+  border: 1px solid #b3b3b3;
+  background: #fff;
+  box-sizing: border-box;
+}
+.modal-submit-button {
+  height: 36px;
+  margin-top: 18px;
+  border: 0;
+  border-radius: 60px;
+  color: #fff;
+  background-color: #1d6154;
+  font-family: "Syne";
+  font-weight: 700;
+  cursor: pointer;
+}
 @media (max-width: 600px) {
   .modal-content {
     padding: 45px 20px 35px;

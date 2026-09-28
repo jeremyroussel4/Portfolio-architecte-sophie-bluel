@@ -84,6 +84,25 @@
 				<button class="modal-add-button" type="button">
 					Ajouter une photo
 				</button>
+
+				<div class="modal-add-content" hidden>
+					<button class="modal-back-button" type="button" aria-label="Retour à la galerie">
+						<i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+					</button>
+					<h2>Ajout photo</h2>
+					<form class="add-photo-form">
+						<label for="photo">Image</label>
+						<input id="photo" name="image" type="file" accept="image/png, image/jpeg" required>
+
+						<label for="title">Titre</label>
+						<input id="title" name="title" type="text" required>
+
+						<label for="category">Catégorie</label>
+						<select id="category" name="category" required></select>
+
+						<button class="modal-submit-button" type="submit">Valider</button>
+					</form>
+				</div>
 			</div>
 		</aside>
 

@@ -1,4 +1,4 @@
-import { deleteWork, loadWorks } from "./model.js";
+import { addWork, deleteWork, loadWorks } from "./model.js";
 
 // Point d'entrée : le controller récupère les données et demande au DOM de les afficher.
 export async function startApplication() {
@@ -9,7 +9,29 @@ export async function startApplication() {
   createFilters(works);
   displayWorks(works);
   displayModalWorks(works);
+  displayCategoryOptions(works);
   setupAdminMode();
+
+  addPhotoForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    // FormData récupère automatiquement l'image, le titre et la catégorie du formulaire.
+    const formData = new FormData(addPhotoForm);
+
+    try {
+      const newWork = await addWork(formData);
+      works.push(newWork);
+      displayWorks(works);
+      displayModalWorks(works);
+      addPhotoForm.reset();
+      addContent.hidden = true;
+      modalGallery.hidden = false;
+      addButton.hidden = false;
+    } catch (error) {
+      console.error(error);
+      alert("L'ajout de la photo a échoué.");
+    }
+  });
 }
 
 function createFilters(works) {
@@ -103,6 +125,12 @@ function setupAdminMode() {
 const editButton = document.querySelector(".edit-button");
 const modal = document.querySelector("#edit-modal");
 const closeButton = document.querySelector(".modal-close");
+const addButton = document.querySelector(".modal-add-button");
+const modalGallery = document.querySelector(".modal-gallery");
+const addContent = document.querySelector(".modal-add-content");
+const backButton = document.querySelector(".modal-back-button");
+const categorySelect = document.querySelector("#category");
+const addPhotoForm = document.querySelector(".add-photo-form");
 
 // Le lien « modifier » est un lien HTML, mais il sert ici à ouvrir la modale.
 editButton.addEventListener("click", (event) => {
@@ -112,13 +140,33 @@ editButton.addEventListener("click", (event) => {
 
 closeButton.addEventListener("click", () => {
   modal.hidden = true;
+  addContent.hidden = true;
+  modalGallery.hidden = false;
+  addButton.hidden = false;
 });
 
 // Un clic sur le fond sombre ferme la modale, mais un clic dans son contenu ne la ferme pas.
 modal.addEventListener("click", (event) => {
   if (event.target === modal) {
     modal.hidden = true;
+    addContent.hidden = true;
+    modalGallery.hidden = false;
+    addButton.hidden = false;
   }
+});
+
+// --- Passage vers le formulaire d'ajout ---
+// Pour l'instant, ce bouton change seulement de vue. L'envoi à l'API viendra ensuite.
+addButton.addEventListener("click", () => {
+  modalGallery.hidden = true;
+  addButton.hidden = true;
+  addContent.hidden = false;
+});
+
+backButton.addEventListener("click", () => {
+  addContent.hidden = true;
+  modalGallery.hidden = false;
+  addButton.hidden = false;
 });
 
 function displayModalWorks(works) {
@@ -171,4 +219,18 @@ function displayModalWorks(works) {
   });
 
   console.log("[DOM] Galerie de la modale mise à jour avec", works.length, "travaux");
+}
+
+function displayCategoryOptions(works) {
+  const categories = [...new Map(
+    works.map((work) => [work.category.id, work.category]),
+  ).values()];
+
+  categorySelect.innerHTML = "";
+  categories.forEach((category) => {
+    const option = document.createElement("option");
+    option.value = category.id;
+    option.textContent = category.name;
+    categorySelect.appendChild(option);
+  });
 }
