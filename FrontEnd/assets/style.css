@@ -340,6 +340,7 @@ nav a:visited {
   position: absolute;
   top: 20px;
   right: 25px;
+  z-index: 2;
   border: 0;
   padding: 0;
   color: #000;
@@ -405,12 +406,21 @@ nav a:visited {
   display: none;
 }
 .modal-add-content {
-  position: relative;
+  position: static;
+  padding-top: 45px;
+}
+.modal-add-content h2 {
+  position: absolute;
+  top: 17px;
+  right: 0;
+  left: 0;
+  margin: 0;
 }
 .modal-back-button {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 20px;
+  left: 25px;
+  z-index: 2;
   border: 0;
   padding: 0;
   color: #000;
@@ -494,6 +504,10 @@ nav a:visited {
   font-family: "Syne";
   font-weight: 700;
   cursor: pointer;
+}
+.modal-submit-button:disabled {
+  background-color: #a7a7a7;
+  cursor: not-allowed;
 }
 @media (max-width: 600px) {
   .modal-content {

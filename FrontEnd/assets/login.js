@@ -16,13 +16,17 @@ form.addEventListener("submit", async (event) => {
     return;
   }
 
-  const user = await loginUser(email, password);
+  try {
+    const user = await loginUser(email, password);
 
-  
-  if (user && user.token) {
-    localStorage.setItem("token", user.token);
-    window.location.href = "index.html";
-  } else {
-    alert("Échec de la connexion. Veuillez vérifier vos identifiants.");
+    if (user && user.token) {
+      localStorage.setItem("token", user.token);
+      window.location.href = "index.html";
+    } else {
+      alert("Échec de la connexion. Veuillez vérifier vos identifiants.");
+    }
+  } catch (error) {
+    console.error(error);
+    alert("Impossible de contacter le serveur. Vérifiez que le backend est lancé.");
   }
 });

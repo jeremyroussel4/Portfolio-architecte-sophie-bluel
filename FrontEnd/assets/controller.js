@@ -12,6 +12,10 @@ export async function startApplication() {
   displayCategoryOptions(works);
   setupAdminMode();
 
+  photoInput.addEventListener("change", updateSubmitButton);
+  titleInput.addEventListener("input", updateSubmitButton);
+  categorySelect.addEventListener("change", updateSubmitButton);
+
   photoInput.addEventListener("change", () => {
     const selectedFile = photoInput.files[0];
 
@@ -42,6 +46,7 @@ export async function startApplication() {
       displayModalWorks(works);
       addPhotoForm.reset();
       photoPreview.hidden = true;
+      updateSubmitButton();
       addContent.hidden = true;
       modalGallery.hidden = false;
       addButton.hidden = false;
@@ -145,12 +150,45 @@ const modal = document.querySelector("#edit-modal");
 const closeButton = document.querySelector(".modal-close");
 const addButton = document.querySelector(".modal-add-button");
 const modalGallery = document.querySelector(".modal-gallery");
+const modalGalleryTitle = document.querySelector(".modal-gallery-title");
 const addContent = document.querySelector(".modal-add-content");
 const backButton = document.querySelector(".modal-back-button");
 const categorySelect = document.querySelector("#category");
 const addPhotoForm = document.querySelector(".add-photo-form");
 const photoInput = document.querySelector("#photo");
 const photoPreview = document.querySelector(".photo-preview");
+const titleInput = document.querySelector("#title");
+const submitButton = document.querySelector(".modal-submit-button");
+
+function updateSubmitButton() {
+  const formIsComplete = photoInput.files.length > 0
+    && titleInput.value.trim() !== ""
+    && categorySelect.value !== "";
+
+  submitButton.disabled = !formIsComplete;
+}
+
+// Réafficher la galerie et cacher la vue du formulaire.
+function showGalleryView() {
+  modalGalleryTitle.hidden = false;
+  modalGallery.hidden = false;
+  addButton.hidden = false;
+  addContent.hidden = true;
+}
+
+// Nettoyer les champs et l'aperçu avant de quitter la modale.
+function resetAddForm() {
+  addPhotoForm.reset();
+  photoPreview.hidden = true;
+  updateSubmitButton();
+}
+
+// Fermer complètement la modale, quelle que soit la vue affichée.
+function closeModal() {
+  modal.hidden = true;
+  showGalleryView();
+  resetAddForm();
+}
 
 // Le lien « modifier » est un lien HTML, mais il sert ici à ouvrir la modale.
 editButton.addEventListener("click", (event) => {
@@ -158,35 +196,35 @@ editButton.addEventListener("click", (event) => {
   modal.hidden = false;
 });
 
-closeButton.addEventListener("click", () => {
-  modal.hidden = true;
-  addContent.hidden = true;
-  modalGallery.hidden = false;
-  addButton.hidden = false;
+// La croix ferme la modale et empêche le titre centré d'intercepter le clic.
+closeButton.addEventListener("click", (event) => {
+  event.preventDefault();
+  event.stopPropagation();
+  closeModal();
 });
 
 // Un clic sur le fond sombre ferme la modale, mais un clic dans son contenu ne la ferme pas.
 modal.addEventListener("click", (event) => {
   if (event.target === modal) {
-    modal.hidden = true;
-    addContent.hidden = true;
-    modalGallery.hidden = false;
-    addButton.hidden = false;
+    closeModal();
   }
 });
 
 // --- Passage vers le formulaire d'ajout ---
 // Pour l'instant, ce bouton change seulement de vue. L'envoi à l'API viendra ensuite.
 addButton.addEventListener("click", () => {
+  modalGalleryTitle.hidden = true;
   modalGallery.hidden = true;
   addButton.hidden = true;
   addContent.hidden = false;
 });
 
-backButton.addEventListener("click", () => {
-  addContent.hidden = true;
-  modalGallery.hidden = false;
-  addButton.hidden = false;
+backButton.addEventListener("click", (event) => {
+  // La flèche revient à la galerie et nettoie le formulaire d'ajout.
+  event.preventDefault();
+  event.stopPropagation();
+  showGalleryView();
+  resetAddForm();
 });
 
 function displayModalWorks(works) {
@@ -247,6 +285,15 @@ function displayCategoryOptions(works) {
   ).values()];
 
   categorySelect.innerHTML = "";
+
+  // La première option reste vide : l'utilisateur doit choisir une catégorie.
+  const placeholder = document.createElement("option");
+  placeholder.value = "";
+  placeholder.textContent = "";
+  placeholder.disabled = true;
+  placeholder.selected = true;
+  categorySelect.appendChild(placeholder);
+
   categories.forEach((category) => {
     const option = document.createElement("option");
     option.value = category.id;
