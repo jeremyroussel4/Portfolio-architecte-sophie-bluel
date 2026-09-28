@@ -5,6 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server",
+    "setup": "node scripts/setup-env.js",
+    "postinstall": "node scripts/setup-env.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
