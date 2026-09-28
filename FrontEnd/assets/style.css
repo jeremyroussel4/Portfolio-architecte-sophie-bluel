@@ -141,6 +141,7 @@ body {
   background-color: #fffef8;
 }
 .edition-banner {
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -150,8 +151,12 @@ body {
   justify-content: center;
   color: white;
   background-color: #000;
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: 400;
   z-index: 10;
+}
+.edition-banner i {
+  margin-right: 10px;
 }
 header {
   display: flex;
@@ -159,11 +164,11 @@ header {
   margin: 50px 0;
 }
 .edit-button {
-    display: none;
+  display: none;
 }
 
 .admin-mode .edition-banner {
-    display: flex;
+  display: flex;
 }
 
 .admin-mode {
@@ -171,11 +176,11 @@ header {
 }
 
 .admin-mode .edit-button {
-    display: inline-block;
+  display: inline-block;
 }
 
 .admin-mode .filters {
-    display: none;
+  display: none;
 }
 section {
   margin: 50px 0;
@@ -188,6 +193,11 @@ h1 {
   font-size: 22px;
   font-weight: 800;
   color: #b1663c;
+}
+
+.site-logo {
+  color: inherit;
+  text-decoration: none;
 }
 
 h1 > span {
@@ -227,8 +237,9 @@ nav a {
   text-decoration: none;
 }
 
-/* Survol des liens qui ne correspondent pas à la page actuelle */
-nav a:not(.active):hover {
+/* Survol des liens non actifs et du lien login actif */
+nav a:not(.active):hover,
+.login-page nav a.active:hover {
   font-weight: 400;
   text-shadow: 0 0 0.5px currentColor;
 }
@@ -294,6 +305,112 @@ nav a:visited {
 .edit-button i {
   margin-right: 5px;
 }
+.modal[hidden] {
+  display: none;
+}
+/* overlay  */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+.modal-content {
+  position: relative;
+  width: min(630px, 100%);
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  padding: 45px 100px 35px;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+.modal-content h2 {
+  margin: 0 0 35px;
+  color: #000;
+  font-family: "Work Sans";
+  font-size: 26px;
+  font-weight: 400;
+  text-align: center;
+}
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  border: 0;
+  padding: 0;
+  color: #000;
+  background: transparent;
+  font-size: 22px;
+  cursor: pointer;
+}
+.modal-gallery {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 25px 10px;
+  padding-bottom: 35px;
+  border-bottom: 1px solid #b3b3b3;
+}
+/* // mise en forme GG !! */
+.modal-gallery figure {
+  position: relative;
+  margin: 0;
+}
+.modal-gallery img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.modal-gallery figcaption {
+  display: none;
+}
+.modal-delete-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  display: grid;
+  width: 17px;
+  height: 17px;
+  padding: 0;
+  place-items: center;
+  border: 0;
+  border-radius: 2px;
+  color: #fff;
+  background-color: #000;
+  font-size: 10px;
+  cursor: pointer;
+}
+.modal-add-button {
+  display: block;
+  width: 240px;
+  max-width: 100%;
+  height: 36px;
+  margin: 35px auto 0;
+  border: 0;
+  border-radius: 60px;
+  color: #fff;
+  background-color: #1d6154;
+  font-family: "Syne";
+  font-weight: 700;
+  cursor: pointer;
+}
+@media (max-width: 600px) {
+  .modal-content {
+    padding: 45px 20px 35px;
+  }
+
+  .modal-gallery {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px 8px;
+  }
+
+  .modal-add-button {
+    width: 100%;
+  }
+}
 .filters {
   display: flex;
   justify-content: center;
@@ -347,7 +464,6 @@ nav a:visited {
   margin-left: auto;
   margin-right: auto;
 }
-
 #contact input,
 #login input {
   height: 50px;

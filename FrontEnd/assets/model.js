@@ -29,3 +29,20 @@ export async function loginUser(email, password) {
   return await response.json();
 }
 
+export async function deleteWork(workId) {
+  const token = localStorage.getItem("token");
+
+  const response = await fetch(`http://localhost:5678/api/works/${workId}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error("La suppression du travail a échoué.");
+  }
+
+  return response;
+}
+
