@@ -1,6 +1,5 @@
 import { addWork, deleteWork, loadWorks } from "./model.js";
 
-// Point d'entrée : le controller récupère les données et demande au DOM de les afficher.
 export async function startApplication() {
   console.log("[CONTROLLER] Démarrage et demande des travaux au model");
 
@@ -24,7 +23,6 @@ export async function startApplication() {
       return;
     }
 
-    // FileReader lit le fichier choisi et permet de l'afficher avant l'envoi.
     const reader = new FileReader();
     reader.addEventListener("load", () => {
       photoPreview.src = reader.result;
@@ -36,7 +34,6 @@ export async function startApplication() {
   addPhotoForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    // FormData récupère automatiquement l'image, le titre et la catégorie du formulaire.
     const formData = new FormData(addPhotoForm);
 
     try {
@@ -62,7 +59,6 @@ function createFilters(works) {
   const allButton = document.createElement("button");
   const categories = [...new Set(works.map((work) => work.category.name))];
 
-  // version modernisée !
   allButton.classList.add("button", "active");
   allButton.textContent = "Tous";
   filters.appendChild(allButton);
@@ -98,12 +94,10 @@ function createFilters(works) {
 
 function displayWorks(works) {
   const gallery = document.querySelector(".gallery");
-  // Clear the gallery
   gallery.innerHTML = "";
 
-  // version modernisée !
   works.forEach((work) => {
-    const { imageUrl, title } = work; // Déstructuration d’objet!!
+    const { imageUrl, title } = work;
     const figure = document.createElement("figure");
     gallery.appendChild(figure);
 
@@ -127,7 +121,7 @@ function setupAdminMode() {
 
   const loginLink = document.querySelector(".login-link");
 
-  loginLink.textContent = isAdmin ? "logout" : "login"; // un peu de ternaire !!
+  loginLink.textContent = isAdmin ? "logout" : "login";
 
   if (!isAdmin) {
     return;
@@ -143,8 +137,6 @@ function setupAdminMode() {
   });
 }
 
-// --- Gestion de la fenêtre modale ---
-// On récupère les éléments HTML qui permettent d'ouvrir et de fermer la modale.
 const editButton = document.querySelector(".edit-button");
 const modal = document.querySelector("#edit-modal");
 const closeButton = document.querySelector(".modal-close");
@@ -168,7 +160,6 @@ function updateSubmitButton() {
   submitButton.disabled = !formIsComplete;
 }
 
-// Réafficher la galerie et cacher la vue du formulaire.
 function showGalleryView() {
   modalGalleryTitle.hidden = false;
   modalGallery.hidden = false;
@@ -176,42 +167,35 @@ function showGalleryView() {
   addContent.hidden = true;
 }
 
-// Nettoyer les champs et l'aperçu avant de quitter la modale.
 function resetAddForm() {
   addPhotoForm.reset();
   photoPreview.hidden = true;
   updateSubmitButton();
 }
 
-// Fermer complètement la modale, quelle que soit la vue affichée.
 function closeModal() {
   modal.hidden = true;
   showGalleryView();
   resetAddForm();
 }
 
-// Le lien « modifier » est un lien HTML, mais il sert ici à ouvrir la modale.
 editButton.addEventListener("click", (event) => {
   event.preventDefault();
   modal.hidden = false;
 });
 
-// La croix ferme la modale et empêche le titre centré d'intercepter le clic.
 closeButton.addEventListener("click", (event) => {
   event.preventDefault();
   event.stopPropagation();
   closeModal();
 });
 
-// Un clic sur le fond sombre ferme la modale, mais un clic dans son contenu ne la ferme pas.
 modal.addEventListener("click", (event) => {
   if (event.target === modal) {
     closeModal();
   }
 });
 
-// --- Passage vers le formulaire d'ajout ---
-// Pour l'instant, ce bouton change seulement de vue. L'envoi à l'API viendra ensuite.
 addButton.addEventListener("click", () => {
   modalGalleryTitle.hidden = true;
   modalGallery.hidden = true;
@@ -220,7 +204,6 @@ addButton.addEventListener("click", () => {
 });
 
 backButton.addEventListener("click", (event) => {
-  // La flèche revient à la galerie et nettoie le formulaire d'ajout.
   event.preventDefault();
   event.stopPropagation();
   showGalleryView();
@@ -228,14 +211,10 @@ backButton.addEventListener("click", (event) => {
 });
 
 function displayModalWorks(works) {
-  // Cette fonction reconstruit le contenu de la galerie de la modale.
   const modalGallery = document.querySelector(".modal-gallery");
-  // Clear the modal gallery
   modalGallery.innerHTML = "";
 
-  // version modernisée !
   works.forEach((work) => {
-    // Chaque work reçu de l'API devient une figure avec une image et un bouton.
     const { id, imageUrl, title } = work;
     const figure = document.createElement("figure");
     modalGallery.appendChild(figure);
@@ -250,7 +229,6 @@ function displayModalWorks(works) {
     deleteButton.setAttribute("aria-label", `Supprimer ${title}`);
     deleteButton.innerHTML = '<i class="fa-solid fa-trash" aria-hidden="true"></i>';
     deleteButton.addEventListener("click", async () => {
-      // La confirmation évite d'envoyer une suppression accidentelle à l'API.
       const confirmed = confirm("Êtes-vous sûr de vouloir supprimer cette photo ?");
 
       if (!confirmed) {
@@ -258,9 +236,7 @@ function displayModalWorks(works) {
       }
 
       try {
-        // Le model communique avec l'API ; le controller orchestre la suite.
         await deleteWork(id);
-        // Après succès, on retire le work du tableau local puis on rafraîchit les deux galeries.
         const workIndex = works.findIndex((currentWork) => currentWork.id === id);
         works.splice(workIndex, 1);
         displayWorks(works);
@@ -286,7 +262,6 @@ function displayCategoryOptions(works) {
 
   categorySelect.innerHTML = "";
 
-  // La première option reste vide : l'utilisateur doit choisir une catégorie.
   const placeholder = document.createElement("option");
   placeholder.value = "";
   placeholder.textContent = "";
