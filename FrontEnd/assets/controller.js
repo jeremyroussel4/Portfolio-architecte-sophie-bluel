@@ -1,8 +1,6 @@
 import { addWork, deleteWork, loadWorks } from "./model.js";
 
 export async function startApplication() {
-  console.log("[CONTROLLER] Démarrage et demande des travaux au model");
-
   const works = await loadWorks();
 
   createFilters(works);
@@ -110,7 +108,6 @@ function displayWorks(works) {
     figure.append(image, figcaption);
   });
 
-  console.log("[DOM] Galerie mise à jour avec", works.length, "travaux");
 }
 
 function setupAdminMode() {
@@ -252,7 +249,6 @@ function displayModalWorks(works) {
     figure.append(image, deleteButton, figcaption);
   });
 
-  console.log("[DOM] Galerie de la modale mise à jour avec", works.length, "travaux");
 }
 
 function displayCategoryOptions(works) {
