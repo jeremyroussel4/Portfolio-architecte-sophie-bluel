@@ -1,4 +1,5 @@
-import { addWork, deleteWork, loadWorks } from "./model.js";
+import { isAuthenticated, logoutUser } from "./authService.js";
+import { addWork, deleteWork, loadWorks } from "./worksService.js";
 
 export async function startApplication() {
   const works = await loadWorks();
@@ -111,8 +112,7 @@ function displayWorks(works) {
 }
 
 function setupAdminMode() {
-  const token = localStorage.getItem("token");
-  const isAdmin = Boolean(token);
+  const isAdmin = isAuthenticated();
 
   document.body.classList.toggle("admin-mode", isAdmin);
 
@@ -129,8 +129,7 @@ function setupAdminMode() {
   loginLink.addEventListener("click", (event) => {
     event.preventDefault();
 
-    localStorage.removeItem("token");
-    window.location.href = "./login.html";
+    logoutUser();
   });
 }
 
