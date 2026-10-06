@@ -1,4 +1,4 @@
-import { loginUser } from "./model.js";
+import { loginUser } from "./authService.js";
 
 const form = document.querySelector("form");
 
