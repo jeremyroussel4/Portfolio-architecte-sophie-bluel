@@ -14,6 +14,14 @@ L'objectif est de rendre dynamique le site de l'architecte d'intérieur Sophie B
 
 Le projet comprend également la création d'une page de connexion administrateur ainsi que d'une interface permettant de gérer les travaux de l'architecte.
 
+L'organisation du Frontend s'inspire du modèle MVC afin de séparer les responsabilités :
+
+* `main.js` démarre l'application
+* `controller.js` coordonne l'application et met à jour le DOM
+* `worksService.js` communique avec l'API pour charger, ajouter et supprimer les travaux
+* `authService.js` gère le token, l'authentification et la déconnexion
+* les fichiers HTML et CSS représentent la partie visible de l'application
+
 ## 🚀 Technologies
 
 HTML5
@@ -72,7 +80,12 @@ Lancez `index.html` avec l'extension **Live Server**.
 │   └── ...
 ├── FrontEnd/
 │   ├── index.html
+│   ├── login.html
 │   └── assets/
+│       ├── main.js
+│       ├── controller.js
+│       ├── worksService.js
+│       ├── authService.js
 │       └── style.css
 ├── .gitignore
 └── README.md
