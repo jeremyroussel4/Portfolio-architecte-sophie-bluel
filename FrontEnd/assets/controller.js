@@ -4,53 +4,62 @@ import { addWork, deleteWork, loadWorks } from "./worksService.js";
 export async function startApplication() {
   const works = await loadWorks();
 
+  initializePage(works);
+  setupFormEvents(works);
+}
+
+function initializePage(works) {
   createFilters(works);
   displayWorks(works);
   displayModalWorks(works);
   displayCategoryOptions(works);
   setupAdminMode();
+}
 
+function setupFormEvents(works) {
   photoInput.addEventListener("change", updateSubmitButton);
   titleInput.addEventListener("input", updateSubmitButton);
   categorySelect.addEventListener("change", updateSubmitButton);
+  photoInput.addEventListener("change", displayPhotoPreview);
+  addPhotoForm.addEventListener("submit", (event) => addPhoto(event, works));
+}
 
-  photoInput.addEventListener("change", () => {
-    const selectedFile = photoInput.files[0];
+function displayPhotoPreview() {
+  const selectedFile = photoInput.files[0];
 
-    if (!selectedFile) {
-      photoPreview.hidden = true;
-      return;
-    }
+  if (!selectedFile) {
+    photoPreview.hidden = true;
+    return;
+  }
 
-    const reader = new FileReader();
-    reader.addEventListener("load", () => {
-      photoPreview.src = reader.result;
-      photoPreview.hidden = false;
-    });
-    reader.readAsDataURL(selectedFile);
+  const reader = new FileReader();
+  reader.addEventListener("load", () => {
+    photoPreview.src = reader.result;
+    photoPreview.hidden = false;
   });
+  reader.readAsDataURL(selectedFile);
+}
 
-  addPhotoForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
+async function addPhoto(event, works) {
+  event.preventDefault();
 
-    const formData = new FormData(addPhotoForm);
+  const formData = new FormData(addPhotoForm);
 
-    try {
-      const newWork = await addWork(formData);
-      works.push(newWork);
-      displayWorks(works);
-      displayModalWorks(works);
-      addPhotoForm.reset();
-      photoPreview.hidden = true;
-      updateSubmitButton();
-      addContent.hidden = true;
-      modalGallery.hidden = false;
-      addButton.hidden = false;
-    } catch (error) {
-      console.error(error);
-      alert("L'ajout de la photo a échoué.");
-    }
-  });
+  try {
+    const newWork = await addWork(formData);
+    works.push(newWork);
+    displayWorks(works);
+    displayModalWorks(works);
+    addPhotoForm.reset();
+    photoPreview.hidden = true;
+    updateSubmitButton();
+    addContent.hidden = true;
+    modalGallery.hidden = false;
+    addButton.hidden = false;
+  } catch (error) {
+    console.error(error);
+    alert("L'ajout de la photo a échoué.");
+  }
 }
 
 function createFilters(works) {
@@ -108,7 +117,6 @@ function displayWorks(works) {
     figcaption.textContent = title;
     figure.append(image, figcaption);
   });
-
 }
 
 function setupAdminMode() {
@@ -149,9 +157,10 @@ const titleInput = document.querySelector("#title");
 const submitButton = document.querySelector(".modal-submit-button");
 
 function updateSubmitButton() {
-  const formIsComplete = photoInput.files.length > 0
-    && titleInput.value.trim() !== ""
-    && categorySelect.value !== "";
+  const formIsComplete =
+    photoInput.files.length > 0 &&
+    titleInput.value.trim() !== "" &&
+    categorySelect.value !== "";
 
   submitButton.disabled = !formIsComplete;
 }
@@ -223,9 +232,12 @@ function displayModalWorks(works) {
     deleteButton.className = "modal-delete-button";
     deleteButton.type = "button";
     deleteButton.setAttribute("aria-label", `Supprimer ${title}`);
-    deleteButton.innerHTML = '<i class="fa-solid fa-trash" aria-hidden="true"></i>';
+    deleteButton.innerHTML =
+      '<i class="fa-solid fa-trash" aria-hidden="true"></i>';
     deleteButton.addEventListener("click", async () => {
-      const confirmed = confirm("Êtes-vous sûr de vouloir supprimer cette photo ?");
+      const confirmed = confirm(
+        "Êtes-vous sûr de vouloir supprimer cette photo ?",
+      );
 
       if (!confirmed) {
         return;
@@ -233,7 +245,9 @@ function displayModalWorks(works) {
 
       try {
         await deleteWork(id);
-        const workIndex = works.findIndex((currentWork) => currentWork.id === id);
+        const workIndex = works.findIndex(
+          (currentWork) => currentWork.id === id,
+        );
         works.splice(workIndex, 1);
         displayWorks(works);
         displayModalWorks(works);
@@ -247,13 +261,12 @@ function displayModalWorks(works) {
     figcaption.textContent = title;
     figure.append(image, deleteButton, figcaption);
   });
-
 }
 
 function displayCategoryOptions(works) {
-  const categories = [...new Map(
-    works.map((work) => [work.category.id, work.category]),
-  ).values()];
+  const categories = [
+    ...new Map(works.map((work) => [work.category.id, work.category])).values(),
+  ];
 
   categorySelect.innerHTML = "";
 
