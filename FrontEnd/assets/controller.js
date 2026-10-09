@@ -62,6 +62,25 @@ async function addPhoto(event, works) {
   }
 }
 
+function displayWorks(works) {
+  const gallery = document.querySelector(".gallery");
+  gallery.innerHTML = "";
+
+  works.forEach((work) => {
+    const { imageUrl, title } = work;
+    const figure = document.createElement("figure");
+    gallery.appendChild(figure);
+
+    const image = document.createElement("img");
+    image.src = imageUrl;
+    image.alt = title;
+
+    const figcaption = document.createElement("figcaption");
+    figcaption.textContent = title;
+    figure.append(image, figcaption);
+  });
+}
+
 function createFilters(works) {
   const filters = document.querySelector(".filters");
   const allButton = document.createElement("button");
@@ -97,25 +116,6 @@ function createFilters(works) {
       );
       displayWorks(filteredWorks);
     });
-  });
-}
-
-function displayWorks(works) {
-  const gallery = document.querySelector(".gallery");
-  gallery.innerHTML = "";
-
-  works.forEach((work) => {
-    const { imageUrl, title } = work;
-    const figure = document.createElement("figure");
-    gallery.appendChild(figure);
-
-    const image = document.createElement("img");
-    image.src = imageUrl;
-    image.alt = title;
-
-    const figcaption = document.createElement("figcaption");
-    figcaption.textContent = title;
-    figure.append(image, figcaption);
   });
 }
 
