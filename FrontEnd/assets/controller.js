@@ -11,55 +11,9 @@ export async function startApplication() {
 function initializePage(works) {
   createFilters(works);
   displayWorks(works);
+  setupAdminMode();
   displayModalWorks(works);
   displayCategoryOptions(works);
-  setupAdminMode();
-}
-
-function setupFormEvents(works) {
-  photoInput.addEventListener("change", updateSubmitButton);
-  titleInput.addEventListener("input", updateSubmitButton);
-  categorySelect.addEventListener("change", updateSubmitButton);
-  photoInput.addEventListener("change", displayPhotoPreview);
-  addPhotoForm.addEventListener("submit", (event) => addPhoto(event, works));
-}
-
-function displayPhotoPreview() {
-  const selectedFile = photoInput.files[0];
-
-  if (!selectedFile) {
-    photoPreview.hidden = true;
-    return;
-  }
-
-  const reader = new FileReader();
-  reader.addEventListener("load", () => {
-    photoPreview.src = reader.result;
-    photoPreview.hidden = false;
-  });
-  reader.readAsDataURL(selectedFile);
-}
-
-async function addPhoto(event, works) {
-  event.preventDefault();
-
-  const formData = new FormData(addPhotoForm);
-
-  try {
-    const newWork = await addWork(formData);
-    works.push(newWork);
-    displayWorks(works);
-    displayModalWorks(works);
-    addPhotoForm.reset();
-    photoPreview.hidden = true;
-    updateSubmitButton();
-    addContent.hidden = true;
-    modalGallery.hidden = false;
-    addButton.hidden = false;
-  } catch (error) {
-    console.error(error);
-    alert("L'ajout de la photo a échoué.");
-  }
 }
 
 function displayWorks(works) {
@@ -156,65 +110,6 @@ const photoPreview = document.querySelector(".photo-preview");
 const titleInput = document.querySelector("#title");
 const submitButton = document.querySelector(".modal-submit-button");
 
-function updateSubmitButton() {
-  const formIsComplete =
-    photoInput.files.length > 0 &&
-    titleInput.value.trim() !== "" &&
-    categorySelect.value !== "";
-
-  submitButton.disabled = !formIsComplete;
-}
-
-function showGalleryView() {
-  modalGalleryTitle.hidden = false;
-  modalGallery.hidden = false;
-  addButton.hidden = false;
-  addContent.hidden = true;
-}
-
-function resetAddForm() {
-  addPhotoForm.reset();
-  photoPreview.hidden = true;
-  updateSubmitButton();
-}
-
-function closeModal() {
-  modal.hidden = true;
-  showGalleryView();
-  resetAddForm();
-}
-
-editButton.addEventListener("click", (event) => {
-  event.preventDefault();
-  modal.hidden = false;
-});
-
-closeButton.addEventListener("click", (event) => {
-  event.preventDefault();
-  event.stopPropagation();
-  closeModal();
-});
-
-modal.addEventListener("click", (event) => {
-  if (event.target === modal) {
-    closeModal();
-  }
-});
-
-addButton.addEventListener("click", () => {
-  modalGalleryTitle.hidden = true;
-  modalGallery.hidden = true;
-  addButton.hidden = true;
-  addContent.hidden = false;
-});
-
-backButton.addEventListener("click", (event) => {
-  event.preventDefault();
-  event.stopPropagation();
-  showGalleryView();
-  resetAddForm();
-});
-
 function displayModalWorks(works) {
   const modalGallery = document.querySelector(".modal-gallery");
   modalGallery.innerHTML = "";
@@ -263,6 +158,58 @@ function displayModalWorks(works) {
   });
 }
 
+editButton.addEventListener("click", (event) => {
+  event.preventDefault();
+  modal.hidden = false;
+});
+
+closeButton.addEventListener("click", (event) => {
+  event.preventDefault();
+  event.stopPropagation();
+  closeModal();
+});
+
+modal.addEventListener("click", (event) => {
+  if (event.target === modal) {
+    closeModal();
+  }
+});
+
+function updateSubmitButton() {
+  const formIsComplete =
+    photoInput.files.length > 0 &&
+    titleInput.value.trim() !== "" &&
+    categorySelect.value !== "";
+
+  submitButton.disabled = !formIsComplete;
+}
+
+function showGalleryView() {
+  modalGalleryTitle.hidden = false;
+  modalGallery.hidden = false;
+  addButton.hidden = false;
+  addContent.hidden = true;
+}
+
+function resetAddForm() {
+  addPhotoForm.reset();
+  photoPreview.hidden = true;
+  updateSubmitButton();
+}
+
+function closeModal() {
+  modal.hidden = true;
+  showGalleryView();
+  resetAddForm();
+}
+
+backButton.addEventListener("click", (event) => {
+  event.preventDefault();
+  event.stopPropagation();
+  showGalleryView();
+  resetAddForm();
+});
+
 function displayCategoryOptions(works) {
   const categories = [
     ...new Map(works.map((work) => [work.category.id, work.category])).values(),
@@ -283,4 +230,57 @@ function displayCategoryOptions(works) {
     option.textContent = category.name;
     categorySelect.appendChild(option);
   });
+}
+
+addButton.addEventListener("click", () => {
+  modalGalleryTitle.hidden = true;
+  modalGallery.hidden = true;
+  addButton.hidden = true;
+  addContent.hidden = false;
+});
+
+function setupFormEvents(works) {
+  photoInput.addEventListener("change", updateSubmitButton);
+  titleInput.addEventListener("input", updateSubmitButton);
+  categorySelect.addEventListener("change", updateSubmitButton);
+  photoInput.addEventListener("change", displayPhotoPreview);
+  addPhotoForm.addEventListener("submit", (event) => addPhoto(event, works));
+}
+
+function displayPhotoPreview() {
+  const selectedFile = photoInput.files[0];
+
+  if (!selectedFile) {
+    photoPreview.hidden = true;
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.addEventListener("load", () => {
+    photoPreview.src = reader.result;
+    photoPreview.hidden = false;
+  });
+  reader.readAsDataURL(selectedFile);
+}
+
+async function addPhoto(event, works) {
+  event.preventDefault();
+
+  const formData = new FormData(addPhotoForm);
+
+  try {
+    const newWork = await addWork(formData);
+    works.push(newWork);
+    displayWorks(works);
+    displayModalWorks(works);
+    addPhotoForm.reset();
+    photoPreview.hidden = true;
+    updateSubmitButton();
+    addContent.hidden = true;
+    modalGallery.hidden = false;
+    addButton.hidden = false;
+  } catch (error) {
+    console.error(error);
+    alert("L'ajout de la photo a échoué.");
+  }
 }
