@@ -5,6 +5,7 @@
 	<meta charset="UTF-8">
 	<title>Sophie Bluel - Architecte d'intérieur</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Les feuilles de style et le module JavaScript sont chargés avant l'affichage de la page. -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans:wght@400;700&display=swap"
@@ -59,11 +60,13 @@
 				</a>
 			</div>
 
+			<!-- Ces deux conteneurs sont remplis dynamiquement par controller.js. -->
 			<div class="filters"></div>
 
 			<div class="gallery"></div>
 		</section>
 
+		<!-- La modale est masquée au départ et est affichée par modal.js en mode administrateur. -->
 		<aside id="edit-modal" class="modal" hidden>
 			<div class="modal-content">
 				<h2 class="modal-gallery-title">Galerie photo</h2>
@@ -78,6 +81,7 @@
 					Ajouter une photo
 				</button>
 
+				<!-- Cette deuxième vue est affichée lorsque l'administrateur ajoute une photo. -->
 				<div class="modal-add-content" hidden>
 					<button class="modal-back-button" type="button" aria-label="Retour à la galerie">
 						<i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
@@ -85,6 +89,7 @@
 					<h2>Ajout photo</h2>
 					<form class="add-photo-form">
 						<div class="photo-upload">
+							<!-- accept limite les types de fichiers proposés dans le sélecteur. -->
 							<input id="photo" name="image" type="file" accept="image/png, image/jpeg" required>
 							<label class="photo-upload-button" for="photo">
 								<i class="fa-regular fa-image" aria-hidden="true"></i>
