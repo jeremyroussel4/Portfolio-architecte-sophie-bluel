@@ -3,6 +3,10 @@ import { getToken } from "./authService.js";
 export async function loadWorks() {
   const response = await fetch("http://localhost:5678/api/works");
 
+  if (!response.ok) {
+    throw new Error("Le chargement des travaux a échoué.");
+  }
+
   return await response.json();
 }
 
