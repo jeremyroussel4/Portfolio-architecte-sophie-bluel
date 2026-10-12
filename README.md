@@ -1,81 +1,88 @@
-# OpenClassrooms - Portfolio architecte Sophie Bluel
+# Portfolio architecte Sophie Bluel
 
 ![HTML](https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS](https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![Status](https://img.shields.io/badge/Status-Completed-brightgreen?style=for-the-badge)
 
-## 📖 Description
+## À propos du projet
 
-Portfolio architecte Sophie Bluel est le septième projet de la formation Développeur Web OpenClassrooms.
+Ce projet est réalisé dans le cadre du septième projet de la formation Développeur Web d'OpenClassrooms.
 
-L'objectif est de rendre dynamique le site de l'architecte d'intérieur Sophie Bluel en utilisant JavaScript et en communiquant avec une API.
+L'objectif est de rendre dynamique le portfolio de l'architecte d'intérieur Sophie Bluel avec JavaScript et une API REST.
 
-Le projet comprend également la création d'une page de connexion administrateur ainsi que d'une interface permettant de gérer les travaux de l'architecte.
+L'application permet notamment de :
 
-L'organisation du Frontend s'inspire du modèle MVC afin de séparer les responsabilités :
+- consulter les projets et les filtrer par catégorie ;
+- se connecter à l'espace administrateur ;
+- ajouter une photo avec aperçu et sélection d'une catégorie ;
+- supprimer des projets depuis une modale de gestion.
 
-* `main.js` démarre l'application
-* `controller.js` coordonne l'application et met à jour le DOM
-* `worksService.js` communique avec l'API pour charger, ajouter et supprimer les travaux
-* `authService.js` gère le token, l'authentification et la déconnexion
-* les fichiers HTML et CSS représentent la partie visible de l'application
+## Technologies utilisées
 
-## 🚀 Technologies
+- HTML5
+- CSS3
+- JavaScript (modules ES)
+- Node.js
+- Express
+- SQLite
+- API REST
+- Git et GitHub
 
-HTML5
-CSS3
-JavaScript
-Node.js
-API REST
-Git
-GitHub
+## Organisation du frontend
 
-## 🎯 Compétences développées
+Le frontend est organisé en modules afin de séparer les responsabilités :
 
-* Manipuler les éléments du DOM avec JavaScript
-* Gérer les événements utilisateurs
-* Récupérer et afficher des données provenant d'une API
-* Utiliser des formulaires en JavaScript
-* Gérer une authentification avec un token
-* Créer une interface dynamique sans rechargement de la page
-* Communiquer avec une API
-* Versionner un projet avec Git et GitHub
+- `main.js` démarre l'application ;
+- `controller.js` coordonne l'affichage de la page, les filtres et le mode administrateur ;
+- `modal.js` gère l'ouverture de la modale, la galerie d'administration et le formulaire d'ajout ;
+- `worksService.js` communique avec l'API pour charger, ajouter et supprimer les projets ;
+- `authService.js` gère l'authentification, le token et la déconnexion.
 
-## 📂 Installation
+## Installation et lancement
 
-Clonez le dépôt :
+### 1. Cloner le dépôt
 
 ```bash
 git clone git@github.com:jeremyroussel4/Portfolio-architecte-sophie-bluel.git
+cd Portfolio-architecte-sophie-bluel
 ```
 
-### Backend
+### 2. Lancer le backend
 
-Ouvrez un terminal dans le dossier `Backend` :
+Dans un premier terminal :
 
 ```bash
+cd Backend
 npm install
-```
-
-Puis lancez le serveur :
-
-```bash
 npm start
 ```
 
-### Frontend
+L'API est alors disponible à l'adresse `http://localhost:5678`.
 
-Ouvrez le dossier `Frontend` dans VS Code.
+La documentation Swagger est accessible à l'adresse :
 
-Lancez `index.html` avec l'extension **Live Server**.
+<http://localhost:5678/api-docs/>
 
-## 📁 Structure du projet
+### 3. Lancer le frontend
+
+Dans un second terminal, ouvrez le dossier `FrontEnd` dans VS Code puis lancez [index.html](./FrontEnd/index.html) avec l'extension **Live Server**.
+
+Le frontend utilise l'API locale du backend. Le backend doit donc rester lancé pendant l'utilisation de l'application.
+
+## Compte administrateur de test
+
+| Email | Mot de passe |
+| --- | --- |
+| `sophie.bluel@test.tld` | `S0phie` |
+
+## Structure du projet
 
 ```text
 .
 ├── Backend/
 │   ├── README.md
+│   ├── package.json
 │   └── ...
 ├── FrontEnd/
 │   ├── index.html
@@ -83,6 +90,7 @@ Lancez `index.html` avec l'extension **Live Server**.
 │   └── assets/
 │       ├── main.js
 │       ├── controller.js
+│       ├── modal.js
 │       ├── worksService.js
 │       ├── authService.js
 │       └── style.css
@@ -90,7 +98,17 @@ Lancez `index.html` avec l'extension **Live Server**.
 └── README.md
 ```
 
-## 👨‍💻 Auteur
+## Compétences mises en pratique
+
+- manipulation du DOM et gestion des événements ;
+- consommation d'une API REST avec `fetch` ;
+- création et validation de formulaires ;
+- authentification avec token ;
+- mise à jour de l'interface sans rechargement ;
+- organisation du code en modules JavaScript ;
+- utilisation de Git et GitHub.
+
+## Auteur
 
 Jeremy Roussel
 
