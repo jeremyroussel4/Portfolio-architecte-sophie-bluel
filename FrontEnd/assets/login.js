@@ -15,13 +15,13 @@ form.addEventListener("submit", async (event) => {
   const validationMessage = !email || !password
     ? "Veuillez remplir tous les champs."
     : "";
-
+// Si validationMessage n'est pas vide, on affiche l'alerte et on arrête la fonction.
   if (validationMessage) {
     alert(validationMessage);
     return;
   }
-
-  try {
+ 
+  try { // Le bloc try/catch permet de gérer les erreurs de connexion au backend.
     // await attend la réponse du backend avant de poursuivre.
     const user = await loginUser(email, password);
 
